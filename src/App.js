@@ -8,7 +8,6 @@ function App() {
       <Button text={"Continue"} />
     </div>
   );
-  */
 }
 
 export default App;
