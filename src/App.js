@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -22,15 +22,17 @@ function App() {
         setLoading(false);
       });
   }, []);
-  useEffect(
-    () =>
-      setResult(
-        coins.filter((coin) => {
-          return coin.name.toLowerCase().includes(search.toLowerCase());
-        })
-      ),
-    [coins, search]
-  );
+  useEffect(() => {
+    const res1 = coins.filter((coin) =>
+      coin.name.toLowerCase().startsWith(search.toLowerCase())
+    );
+    const res2 = coins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(search.toLowerCase()) &&
+        !res1.includes(coin)
+    );
+    setResult(() => [...res1, ...res2]);
+  }, [coins, search]);
   return (
     <div>
       <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
@@ -42,6 +44,7 @@ function App() {
             type="number"
             placeholder="Enter amount of USD"
             onChange={onMoneyChange}
+            min="0"
           />
           <br />
           <input
