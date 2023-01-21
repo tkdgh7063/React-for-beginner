@@ -2,6 +2,17 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 function Movie({ id, coverImg, title, year, summary, genres }) {
+  const summarySlice = (summary) => {
+    if (summary.length >= 235) {
+      let i = 0;
+      while (summary.charAt(235 + i) !== " ") {
+        i += 1;
+      }
+      return summary.slice(0, 235 + i);
+    } else {
+      return summary;
+    }
+  };
   return (
     <div>
       <img src={coverImg} alt={title} />
@@ -10,7 +21,7 @@ function Movie({ id, coverImg, title, year, summary, genres }) {
           {title}({year})
         </Link>
       </h2>
-      <p>{summary}</p>
+      <p>{summarySlice(summary)}</p>
       <ul>
         {genres.map((g) => (
           <li key={g}>{g}</li>
