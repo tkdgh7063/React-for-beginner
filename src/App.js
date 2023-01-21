@@ -1,12 +1,19 @@
-import Button from "./Button";
-import styles from "./App.module.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
 
 function App() {
   return (
-    <div className="App">
-      <h1 className={styles.title}>Welcome Back!!</h1>
-      <Button text={"Continue"} />
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/movie/:id">
+          <Detail />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
